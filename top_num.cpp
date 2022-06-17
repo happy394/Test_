@@ -1,9 +1,18 @@
+//Лажу я нашел, чтобы все работало надо удалить буквально 2 символа.
+//Для дебага советую написать логи, то есть: при попадании в строчке 35 в if выводить, что элемент n уже был и теперь их суммарно k штук
+//Если попадет в else, писать, что его не было, мы добавили и где теперь находится end.     Исправленный код залил вторым проектом, не смотри пока сам не разберешься 
+
+
+
+
 #include <iostream>
 #include <string>
 using namespace std;
 
-int hon[1000][2];
-bool check(int num, int end, int buff) {
+int hon[1000][2];					//Наш словарь. Объявлен в глобальных, чтобы было видно из всех функций
+
+
+bool check(int num, int end, int buff) {		//Проверяет был ли элемент num и если да, запоминает его координату(buff) 
 	for (int i = 0; i < end; i++) {
 		if (num == hon[i][0]) {
 			buff = i;
@@ -14,26 +23,25 @@ bool check(int num, int end, int buff) {
 }
 
 int main() {
-	/*string s;
-	s = "Hello world";
-	cout << s.length();*/
+	////////////////////////////////////////////////////
 	int n;
 	int buff = 0;
-	cin >> n;
+	cin >> n;				//Объявления
 	int array[1000];
 	int end = 0;
+	////////////////////////////////////////////////////
 	for (int i = 0; i < n; i++) {
 		cin >> array[i];
-		if (check(array[i], end, buff) == 1) {
+		if (check(array[i], end, buff) == 1) {		//Если элемент был, увеличивем число его упомянаний(hon[buff][1])
 			hon[buff][1]++;
 		}
-		else {
+		else {						//Если нет, создаем запись
 			hon[end + 1][0] = array[i];
 			hon[end + 1][1] = 1;
 			end++;
 		}
 	}
-	for (int i = 0; i < end; i++) {
+	for (int i = 0; i < end; i++) {				//Выводим массив hon
 		cout << hon[i][0] << " " << hon[i][1] << endl;
 	}
 }
