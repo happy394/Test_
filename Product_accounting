@@ -1,0 +1,88 @@
+#include <iostream>;
+#include <string>;
+
+using namespace std;
+
+struct product {
+	string name;
+	int amount;
+	int num;
+};
+
+int main() {
+	string name;
+	int cin_amount;
+	int n = 100; // Кол-во операций. Думаю больше точно не будет, как минимум из-за кол-ва продуктов.
+
+	product milk;
+	milk.name = "milk";
+	milk.amount = 13;
+	milk.num = 0;
+
+	product egg;
+	egg.name = "eggs"; 
+	egg.amount = 40;
+	egg.num = 1;
+
+	product bread;
+	bread.name = "loafs of bread"; 
+	bread.amount = 6;
+	bread.num = 2;
+
+	product array[3] = {milk, egg, bread};
+	
+	cout << endl << "To buy our products, please use correct names" << endl << "To end - type 'end 1'" << endl;
+	cout << "Our products: " << endl << " " << milk.name << ": " << milk.amount << endl << " " << egg.name << ": " << egg.amount << endl << " " << bread.name << ": " << bread.amount << endl;
+	
+	for (int i = 0; i < n; i++) {
+		cin >> name >> cin_amount;
+
+		if (name == "end") {
+			i = 101;
+		}
+		
+		if (name == "milk" or 0) {
+			cout << "In milk";
+			if (milk.amount < cin_amount) {
+				cout << "You can't buy that much milk." << endl;
+				cout << "Milk remaining: ->" << milk.amount << "<-" << endl;
+			}
+			if (milk.amount >= cin_amount) {
+					milk.amount = milk.amount - cin_amount;
+					cout << endl << "Remaining products: " << endl << " " << milk.name << ": " << milk.amount << endl << " " << egg.name << ": " << egg.amount << endl << " " << bread.name << ": " << bread.amount << endl;
+			}
+		}
+
+		if (name == "eggs" or "egg" or 1) {
+			cout << "In egg";
+			if (egg.amount < cin_amount) {
+				cout << "You can't buy that many eggs." << endl;
+				cout << "Eggs remaining: ->" << egg.amount << "<-" << endl;
+			}
+			if (egg.amount >= cin_amount) {
+					egg.amount = egg.amount - cin_amount;
+					cout << endl << "Remaining products: " << endl << " " << milk.name << ": " << milk.amount << endl << " " << egg.name << ": " << egg.amount << endl << " " << bread.name << ": " << bread.amount << endl;
+			}
+		}
+
+		if (name == "loafs of bread" or "loaf of bread" or "bread" or 2) {
+			cout << "In bread";
+			if (egg.amount < cin_amount) {
+				cout << "You can't buy that many loafs of bread." << endl;
+				cout << "Loafs of bread remaining: ->" << bread.amount << "<-" << endl;
+			}
+			if (bread.amount >= cin_amount) {
+					bread.amount = bread.amount - cin_amount;
+					cout << endl << "Remaining products: " << endl << " " << milk.name << ": " << milk.amount << endl << " " << egg.name << ": " << egg.amount << endl << " " << bread.name << ": " << bread.amount << endl;
+			}
+		}
+		if (egg.amount == 1) {
+			egg.name = "egg";
+		}	// name changing
+		if (bread.amount == 1) {
+			bread.name = "loaf of bread";
+		}	  // name changing
+	}
+	cout << "products remaining: " << milk.name << ": " << milk.amount << " " << egg.name << ": " << egg.amount << " " << bread.name << ": " << bread.amount << " " << endl;
+	return 0;
+}
