@@ -3,47 +3,42 @@
 
 using namespace std;
 
-struct product {
+struct product { //создаём структуру для продуктов
 	string name;
 	int amount;
-	int num;
 };
 
 int main() {
-	string name;
-	int cin_amount;
+	string name; // имя продукта, которое мы хотим купить
+	int cin_amount; // кол-во, которое мы хотим купить
 	int n = 100; // Кол-во операций. Думаю больше точно не будет, как минимум из-за кол-ва продуктов.
 
-	product milk;
+	product milk; 
 	milk.name = "milk";
 	milk.amount = 13;
-	milk.num = 0;
 
 	product egg;
 	egg.name = "eggs"; 
 	egg.amount = 40;
-	egg.num = 1;
 
 	product bread;
 	bread.name = "loafs of bread"; 
 	bread.amount = 6;
-	bread.num = 2;
 
-	product array[3] = {milk, egg, bread};
+	product array[3] = {milk, egg, bread}; // забиваем в массив три продукта, что есть на "складе"
 	
-	cout << endl << "To buy our products, please use correct names" << endl << "To end - type 'end 1'" << endl;
-	cout << "Our products: " << endl << " " << milk.name << ": " << milk.amount << endl << " " << egg.name << ": " << egg.amount << endl << " " << bread.name << ": " << bread.amount << endl;
+	cout << endl << "To buy our products, please use correct names" << endl << "To end - type 'end shopping'" << endl; //немного "кастомизации"
+	cout << "Our products: " << endl << " " << milk.name << ": " << milk.amount << endl << " " << egg.name << ": " << egg.amount << endl << " " << bread.name << ": " << bread.amount << endl; //немного "кастомизации"
 	
-	for (int i = 0; i < n; i++) {
-		cin >> name >> cin_amount;
+	for (int i = 0; i < n; i++) { // создаём форик, чтобы после каждой снятой позиции программа продолжала работать, а не заканчивала
+		cin >> name >> cin_amount; // принимаем на вход значения и идём смотреть ифки
 
-		if (name == "end") {
-			i = 101;
+		if (name == "end") { // условие выхода из форика
+			i = n + 1;
 		}
 		
-		if (name == "milk" or 0) {
-			cout << "In milk";
-			if (milk.amount < cin_amount) {
+		if (name == "milk") { // условие совпадения продукта с введённым
+			if (milk.amount < cin_amount) { // условие невозможности купить такого кол-ва продуктов
 				cout << "You can't buy that much milk." << endl;
 				cout << "Milk remaining: ->" << milk.amount << "<-" << endl;
 			}
@@ -52,37 +47,37 @@ int main() {
 					cout << endl << "Remaining products: " << endl << " " << milk.name << ": " << milk.amount << endl << " " << egg.name << ": " << egg.amount << endl << " " << bread.name << ": " << bread.amount << endl;
 			}
 		}
+		//аналогичные комментарии для следующих двух иф
 
-		if (name == "eggs" or "egg" or 1) {
-			cout << "In egg";
-			if (egg.amount < cin_amount) {
+		if (name == "eggs" || name == "egg") { 
+			if (egg.amount < cin_amount) { 
 				cout << "You can't buy that many eggs." << endl;
 				cout << "Eggs remaining: ->" << egg.amount << "<-" << endl;
 			}
-			if (egg.amount >= cin_amount) {
-					egg.amount = egg.amount - cin_amount;
+			if (egg.amount >= cin_amount) { 
+					egg.amount = egg.amount - cin_amount; 
+					if (egg.amount == 1) {
+						egg.name = "egg";
+					}	// смена названия, если в начилии осталась одна штука
 					cout << endl << "Remaining products: " << endl << " " << milk.name << ": " << milk.amount << endl << " " << egg.name << ": " << egg.amount << endl << " " << bread.name << ": " << bread.amount << endl;
 			}
 		}
 
-		if (name == "loafs of bread" or "loaf of bread" or "bread" or 2) {
-			cout << "In bread";
-			if (egg.amount < cin_amount) {
+		if (name == "bread") { 
+			if (bread.amount < cin_amount) { 
 				cout << "You can't buy that many loafs of bread." << endl;
 				cout << "Loafs of bread remaining: ->" << bread.amount << "<-" << endl;
 			}
 			if (bread.amount >= cin_amount) {
 					bread.amount = bread.amount - cin_amount;
+					if (bread.amount == 1) {
+						bread.name = "loaf of bread";
+					}	// смена названия, если в начилии осталась одна штука
 					cout << endl << "Remaining products: " << endl << " " << milk.name << ": " << milk.amount << endl << " " << egg.name << ": " << egg.amount << endl << " " << bread.name << ": " << bread.amount << endl;
 			}
 		}
-		if (egg.amount == 1) {
-			egg.name = "egg";
-		}	// name changing
-		if (bread.amount == 1) {
-			bread.name = "loaf of bread";
-		}	  // name changing
 	}
-	cout << "products remaining: " << milk.name << ": " << milk.amount << " " << egg.name << ": " << egg.amount << " " << bread.name << ": " << bread.amount << " " << endl;
+	cout << "products remaining: " << milk.name << ": " << milk.amount << " " << egg.name << ": " << egg.amount << " " << bread.name << ": " << bread.amount << " " << endl; // конечный вывод оставшихся продуктов на "складе"
 	return 0;
 }
+// к сожалению я не знаю как сделать так, чтобы при вводе name программа учитывала и пробелы тоже. Допустим, если ввести loafs of bread 5, то программа просто прекратится, тк name == loafs, а cin_amount == of. Вроде так
